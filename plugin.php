@@ -1,5 +1,7 @@
 <?php
 
+namespace ProximitImport;
+
 /**
  * Plugin Name: Proximit Import
  * Plugin URI: https://proximit.com
@@ -33,7 +35,14 @@ function proximit_import_deactivate() {}
 register_deactivation_hook(__FILE__, 'proximit_import_deactivate');
 
 // Chargement des fichiers nécessaires
-require_once PROXIMIT_IMPORT_PLUGIN_DIR . 'admin/class-proximit-import-admin.php';
+
+# Services
+require_once PROXIMIT_IMPORT_PLUGIN_DIR . 'services/api-import.php';
+
+# Hooks
+require_once PROXIMIT_IMPORT_PLUGIN_DIR . 'hooks/handle-admin-import-page.php';
+require_once PROXIMIT_IMPORT_PLUGIN_DIR . 'hooks/register-wp-cli-commands.php';
 
 // Instanciation des classes
-(new Proximit_Import_Admin())->register_hooks();
+(new HandleAdminImportPage())->register_hooks();
+(new RegisterWPCliCommands())->register_hooks();

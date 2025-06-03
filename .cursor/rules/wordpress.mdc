@@ -1,0 +1,12 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+Code toujours selon les WordPress Coding Standards
+
+Exception pour les tableaux : 
+utilise la syntaxe [] plutôt que array()
+
+Pour les noms de classe, n'utilises pas les _ pour séparer les mots
+exemple : HandleAdminImportPage au lieu de Handle_Admin_Import_Page

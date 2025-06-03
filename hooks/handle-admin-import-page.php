@@ -1,16 +1,19 @@
 <?php
 
+namespace ProximitImport;
+
 /**
  * Gère l'interface d'administration du plugin
  */
-class Proximit_Import_Admin
+class HandleAdminImportPage
 {
 
   public function register_hooks()
   {
-    add_action('admin_menu', array($this, 'add_plugin_admin_menu'));
-    add_action('admin_enqueue_scripts', array($this, 'enqueue_styles'));
-    add_action('admin_enqueue_scripts', array($this, 'enqueue_scripts'));
+    add_action('admin_menu', [$this, 'add_plugin_admin_menu']);
+    add_action('admin_enqueue_scripts', [$this, 'enqueue_styles']);
+    add_action('admin_enqueue_scripts', [$this, 'enqueue_scripts']);
+    add_action('admin_post_proximit_import_via_api', [$this, 'proximit_import_via_api']);
   }
 
   /**
@@ -18,10 +21,14 @@ class Proximit_Import_Admin
    */
   public function enqueue_styles()
   {
+    if (get_current_screen()->id !== 'toplevel_page_proximit-import') {
+      return;
+    }
+
     wp_enqueue_style(
       PROXIMIT_IMPORT_PLUGIN_NAME,
       PROXIMIT_IMPORT_PLUGIN_URL . 'admin/css/proximit-import-admin.css',
-      array(),
+      [],
       PROXIMIT_IMPORT_VERSION,
       'all'
     );
@@ -32,10 +39,14 @@ class Proximit_Import_Admin
    */
   public function enqueue_scripts()
   {
+    if (get_current_screen()->id !== 'toplevel_page_proximit-import') {
+      return;
+    }
+
     wp_enqueue_script(
       PROXIMIT_IMPORT_PLUGIN_NAME,
       PROXIMIT_IMPORT_PLUGIN_URL . 'admin/js/proximit-import-admin.js',
-      array('jquery'),
+      ['jquery'],
       PROXIMIT_IMPORT_VERSION,
       false
     );
@@ -51,7 +62,7 @@ class Proximit_Import_Admin
       'Import',
       'manage_options',
       PROXIMIT_IMPORT_PLUGIN_NAME,
-      array($this, 'display_plugin_admin_page'),
+      [$this, 'display_plugin_admin_page'],
       'dashicons-database-import',
       100
     );
@@ -62,6 +73,18 @@ class Proximit_Import_Admin
    */
   public function display_plugin_admin_page()
   {
-    include_once PROXIMIT_IMPORT_PLUGIN_DIR . 'admin/partials/proximit-import-admin-display.php';
+    include_once PROXIMIT_IMPORT_PLUGIN_DIR . 'admin/templates/import-page.php';
+  }
+
+
+  public function proximit_import_via_api()
+  {
+    $nonce = isset($_POST['proximit_import_via_api_nonce']) ? sanitize_text_field($_POST['proximit_import_via_api_nonce']) : null;
+
+    if (!wp_verify_nonce($nonce, 'proximit_import_via_api_nonce')) {
+      wp_die('Nonce invalide');
+    }
+
+    echo "coucou";
   }
 }
