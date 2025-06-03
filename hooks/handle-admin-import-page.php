@@ -85,6 +85,6 @@ class HandleAdminImportPage
       wp_die('Nonce invalide');
     }
 
-    echo "coucou";
+    (new ApiImport())->import_data();
   }
 }

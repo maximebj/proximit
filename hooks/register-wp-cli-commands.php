@@ -30,6 +30,6 @@ class RegisterWPCliCommands
       return;
     }
 
-    WP_CLI::log('hello world');
+    (new ApiImport())->import_data();
   }
 }
