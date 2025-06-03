@@ -23,13 +23,8 @@ class RegisterWPCliCommands
     ]);
   }
 
-
   public function import_command()
   {
-    if (!class_exists('WP_CLI')) {
-      return;
-    }
-
     (new ApiImport())->import_data();
   }
 }

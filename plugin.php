@@ -26,13 +26,15 @@ define('PROXIMIT_IMPORT_PLUGIN_NAME', 'proximit-import');
 define('PROXIMIT_IMPORT_PLUGIN_DIR', plugin_dir_path(__FILE__));
 define('PROXIMIT_IMPORT_PLUGIN_URL', plugin_dir_url(__FILE__));
 
+define('PROXIMIT_IMPORT_POST_TYPE', 'pokemon');
+
 // Activation du plugin
 function proximit_import_activate() {}
-register_activation_hook(__FILE__, 'proximit_import_activate');
+register_activation_hook(__FILE__, __NAMESPACE__ . '\proximit_import_activate');
 
 // Désactivation du plugin
 function proximit_import_deactivate() {}
-register_deactivation_hook(__FILE__, 'proximit_import_deactivate');
+register_deactivation_hook(__FILE__, __NAMESPACE__ . '\proximit_import_deactivate');
 
 // Chargement des fichiers nécessaires
 
@@ -45,7 +47,9 @@ require_once PROXIMIT_IMPORT_PLUGIN_DIR . 'services/api-import.php';
 # Hooks
 require_once PROXIMIT_IMPORT_PLUGIN_DIR . 'hooks/handle-admin-import-page.php';
 require_once PROXIMIT_IMPORT_PLUGIN_DIR . 'hooks/register-wp-cli-commands.php';
+require_once PROXIMIT_IMPORT_PLUGIN_DIR . 'hooks/register-post-types.php';
 
 // Instanciation des classes
 (new HandleAdminImportPage())->register_hooks();
 (new RegisterWPCliCommands())->register_hooks();
+(new RegisterPostTypes())->register_hooks();
