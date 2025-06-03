@@ -36,6 +36,9 @@ register_deactivation_hook(__FILE__, 'proximit_import_deactivate');
 
 // Chargement des fichiers nécessaires
 
+# Helpers
+require_once PROXIMIT_IMPORT_PLUGIN_DIR . 'helpers/helpers.php';
+
 # Services
 require_once PROXIMIT_IMPORT_PLUGIN_DIR . 'services/api-import.php';
 
