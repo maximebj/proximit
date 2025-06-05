@@ -18,13 +18,22 @@ class RegisterWPCliCommands
       return;
     }
 
-    WP_CLI::add_command('proximit import', [$this, 'import_command'], [
+    WP_CLI::add_command('proximit api-import', [$this, 'api_import_command'], [
+      'shortdesc' => 'Proximit specific commands'
+    ]);
+
+    WP_CLI::add_command('proximit csv-import', [$this, 'csv_import_command'], [
       'shortdesc' => 'Proximit specific commands'
     ]);
   }
 
-  public function import_command()
+  public function api_import_command()
   {
     (new ApiImport(151))->import_data();
+  }
+
+  public function csv_import_command()
+  {
+    (new CsvImport())->import_data();
   }
 }

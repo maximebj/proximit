@@ -42,7 +42,9 @@ register_deactivation_hook(__FILE__, __NAMESPACE__ . '\proximit_import_deactivat
 require_once PROXIMIT_IMPORT_PLUGIN_DIR . 'helpers/helpers.php';
 
 # Services
+require_once PROXIMIT_IMPORT_PLUGIN_DIR . 'services/block-converter.php';
 require_once PROXIMIT_IMPORT_PLUGIN_DIR . 'services/api-import.php';
+require_once PROXIMIT_IMPORT_PLUGIN_DIR . 'services/csv-import.php';
 
 # Hooks
 require_once PROXIMIT_IMPORT_PLUGIN_DIR . 'hooks/handle-admin-import-page.php';
