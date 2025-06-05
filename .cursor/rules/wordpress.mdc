@@ -10,3 +10,5 @@ utilise la syntaxe [] plutôt que array()
 
 Pour les noms de classe, n'utilises pas les _ pour séparer les mots
 exemple : HandleAdminImportPage au lieu de Handle_Admin_Import_Page
+
+Pense à utiliser les fonction d'echappement et de sanitisation de WordPress afin de respecter les bonnes pratiques de sécurité
