@@ -4,10 +4,10 @@ namespace ProximitImport;
 
 class ApiImport
 {
-  protected $api_url = 'https://pokeapi.co/api/v2/pokemon?limit=15';
+  protected $api_url = 'https://pokeapi.co/api/v2/pokemon';
   protected $data = [];
 
-  public function __construct() {}
+  public function __construct(protected int $number_of_pokemons = 15) {}
 
   public function import_data()
   {
@@ -21,7 +21,7 @@ class ApiImport
 
   protected function call_api()
   {
-    $response = wp_remote_get($this->api_url);
+    $response = wp_remote_get($this->api_url . '?limit=' . $this->number_of_pokemons);
     $body = wp_remote_retrieve_body($response);
     $response_body = json_decode($body, true);
 
@@ -57,11 +57,12 @@ class ApiImport
         ]);
 
         Helpers::log('✅ ' . $item['name'] . ' mis à jour !');
+
+        $current_post_id = $post->ID;
       }
 
       # Création s'il n'existe pas
       else {
-
         $post_id = wp_insert_post([
           'post_title' => $item['name'],
           'post_content' => "content",
@@ -81,6 +82,8 @@ class ApiImport
           }
         }
 
+        $current_post_id = $post_id;
+
         Helpers::log('✅ ' . $item['name'] . ' ajouté !');
       }
 
@@ -90,7 +93,7 @@ class ApiImport
           return $type['type']['name'];
         }, $item['types']);
 
-        wp_set_object_terms($post->ID, $types, 'pokemon_type');
+        wp_set_object_terms($current_post_id, $types, 'pokemon_type');
       }
     }
   }

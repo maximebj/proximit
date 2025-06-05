@@ -2,7 +2,7 @@
 
 namespace ProximitImport;
 
-class RegisterRestRoutes
+class RegisterRestParams
 {
   public function register_hooks()
   {

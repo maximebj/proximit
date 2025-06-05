@@ -25,6 +25,6 @@ class RegisterWPCliCommands
 
   public function import_command()
   {
-    (new ApiImport())->import_data();
+    (new ApiImport(151))->import_data();
   }
 }

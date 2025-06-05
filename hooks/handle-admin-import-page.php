@@ -85,6 +85,10 @@ class HandleAdminImportPage
       wp_die('Nonce invalide');
     }
 
-    (new ApiImport())->import_data();
+    (new ApiImport([
+      'number_of_pokemons' => 15,
+      'caught' => true,
+      'embed' => true
+    ]))->import_data();
   }
 }
