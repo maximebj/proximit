@@ -48,8 +48,12 @@ require_once PROXIMIT_IMPORT_PLUGIN_DIR . 'services/api-import.php';
 require_once PROXIMIT_IMPORT_PLUGIN_DIR . 'hooks/handle-admin-import-page.php';
 require_once PROXIMIT_IMPORT_PLUGIN_DIR . 'hooks/register-wp-cli-commands.php';
 require_once PROXIMIT_IMPORT_PLUGIN_DIR . 'hooks/register-post-types.php';
+require_once PROXIMIT_IMPORT_PLUGIN_DIR . 'hooks/register-taxonomies.php';
+require_once PROXIMIT_IMPORT_PLUGIN_DIR . 'hooks/register-rest-routes.php';
 
 // Instanciation des classes
 (new HandleAdminImportPage())->register_hooks();
 (new RegisterWPCliCommands())->register_hooks();
 (new RegisterPostTypes())->register_hooks();
+(new RegisterTaxonomies())->register_hooks();
+(new RegisterRestRoutes())->register_hooks();

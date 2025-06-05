@@ -4,7 +4,7 @@ namespace ProximitImport;
 
 class ApiImport
 {
-  protected $api_url = 'https://pokeapi.co/api/v2/pokemon?limit=5';
+  protected $api_url = 'https://pokeapi.co/api/v2/pokemon?limit=15';
   protected $data = [];
 
   public function __construct() {}
@@ -82,6 +82,15 @@ class ApiImport
         }
 
         Helpers::log('✅ ' . $item['name'] . ' ajouté !');
+      }
+
+      // Ajout des types
+      if (!empty($item['types'])) {
+        $types = array_map(function ($type) {
+          return $type['type']['name'];
+        }, $item['types']);
+
+        wp_set_object_terms($post->ID, $types, 'pokemon_type');
       }
     }
   }
